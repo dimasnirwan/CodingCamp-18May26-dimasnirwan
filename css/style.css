@@ -381,16 +381,20 @@ body {
 
 /* ─── Quick Links (compact, centered, bottom) ─── */
 .card--links {
-  padding: var(--space-md) var(--space-lg);
-  max-width: 280px;
+  padding: var(--space-lg) var(--space-xl);
+  max-width: 360px;
   margin: 0 auto;
   text-align: center;
-  align-self: center;
+  width: 100%;
+}
+
+.card--links .card__title--center {
+  margin-bottom: var(--space-md);
 }
 
 .links-grid {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   justify-content: center;
 }
 
@@ -399,9 +403,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
-  padding: 0.5rem 0.75rem;
-  min-width: 56px;
+  gap: 0.5rem;
+  padding: 0.85rem 1.1rem;
+  min-width: 72px;
   border-radius: var(--radius-md);
   background: var(--bg-card);
   backdrop-filter: blur(20px);
@@ -748,7 +752,9 @@ body {
   }
 
   .card--links {
-    flex: 0 0 auto;
+    flex-basis: 100%;
+    max-width: 360px;
+    margin: var(--space-sm) auto 0;
   }
 }
 
@@ -774,7 +780,7 @@ body {
 
   .card--todo { flex: 1 1 55%; }
   .card--timer { flex: 1 1 40%; }
-  .card--links { flex: 0 0 auto; }
+  .card--links { flex-basis: 100%; max-width: 360px; margin: var(--space-md) auto 0; }
 
   .card { padding: var(--space-xl); }
 }

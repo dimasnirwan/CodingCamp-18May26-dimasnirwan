@@ -712,7 +712,8 @@ const Theme = (() => {
 const QuickLinks = (() => {
   const DEFAULT_LINKS = [
     { id: 'gmail', name: 'Gmail', url: 'mailto:dimasnirwan@gmail.com', icon: 'fa-solid fa-envelope' },
-    { id: 'github', name: 'GitHub', url: 'https://github.com/dimasnirwan', icon: 'fa-brands fa-github' }
+    { id: 'github', name: 'GitHub', url: 'https://github.com/dimasnirwan', icon: 'fa-brands fa-github' },
+    { id: 'linkedin', name: 'LinkedIn', url: 'https://www.linkedin.com/in/dimasnirwan', icon: 'fa-brands fa-linkedin' }
   ];
 
   let links = [];
@@ -753,14 +754,10 @@ const QuickLinks = (() => {
 
   function init() {
     gridEl = document.getElementById('links-grid');
-    const stored = Storage.get('links', null);
 
-    if (stored && Array.isArray(stored) && stored.length > 0) {
-      links = stored;
-    } else {
-      links = DEFAULT_LINKS.slice();
-      persist();
-    }
+    // Always use default links (permanent, not user-editable)
+    links = DEFAULT_LINKS.slice();
+    persist();
 
     render();
   }
