@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Dashboard</title>
+
+  <!-- Google Fonts - Mona Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6.7.2 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- AOS 2.3.4 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header__top">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme">
+        <i class="fa-solid fa-moon" id="theme-icon"></i>
+      </button>
+    </div>
+
+    <div class="header__hero" data-aos="fade-up" data-aos-duration="1200">
+      <div id="clock-display" class="clock-display"></div>
+      <div id="date-display" class="date-display"></div>
+    </div>
+
+    <div class="header__greeting" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+      <h1 id="greeting-display" class="greeting-display"></h1>
+      <div class="name-input-wrapper">
+        <label for="name-input" class="sr-only">Your name</label>
+        <input
+          type="text"
+          id="name-input"
+          class="name-input"
+          placeholder="Enter your name"
+          maxlength="30"
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Todo Container -->
+    <section id="todo-container" class="card card--todo" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" aria-label="To-do list">
+      <div class="card__header">
+        <h2 class="card__title"><i class="fa-solid fa-list-check"></i> Tasks</h2>
+        <select id="sort-select" class="sort-select" aria-label="Sort tasks">
+          <option value="date">Newest</option>
+          <option value="alpha">A–Z</option>
+          <option value="status">Status</option>
+        </select>
+      </div>
+
+      <form id="todo-form" class="todo-form" data-aos="fade-up" data-aos-delay="450">
+        <input
+          type="text"
+          id="todo-input"
+          class="todo-input"
+          placeholder="What needs to be done?"
+          maxlength="200"
+          aria-label="New task description"
+        >
+        <button type="submit" class="btn btn--primary" aria-label="Add task">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </form>
+      <div id="todo-error" class="todo-error" role="alert" aria-live="assertive" hidden></div>
+      <ul id="todo-list" class="todo-list" role="list"></ul>
+    </section>
+
+    <!-- Pomodoro Focus Timer -->
+    <section id="timer-container" class="card card--timer" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" aria-label="Pomodoro focus timer">
+      <div class="card__header">
+        <h2 class="card__title"><i class="fa-solid fa-clock"></i> Focus</h2>
+      </div>
+
+      <div class="timer-display" data-aos="zoom-in" data-aos-delay="500">
+        <span id="timer-time" class="timer-time">25:00</span>
+        <p class="timer-label">Pomodoro Timer</p>
+      </div>
+
+      <div class="timer-presets" role="group" aria-label="Timer duration presets (minutes)" data-aos="fade-up" data-aos-delay="550">
+        <button class="btn btn--preset" data-duration="1">1m</button>
+        <button class="btn btn--preset" data-duration="5">5m</button>
+        <button class="btn btn--preset" data-duration="10">10m</button>
+        <button class="btn btn--preset" data-duration="15">15m</button>
+        <button class="btn btn--preset" data-duration="20">20m</button>
+        <button class="btn btn--preset active" data-duration="25">25m</button>
+        <button class="btn btn--preset" data-duration="30">30m</button>
+        <button class="btn btn--preset" data-duration="45">45m</button>
+        <button class="btn btn--preset" data-duration="60">60m</button>
+      </div>
+
+      <div class="timer-custom">
+        <input type="number" id="timer-custom-input" class="timer-custom-input" min="1" max="120" placeholder="Custom (min)" aria-label="Custom duration in minutes">
+        <button id="timer-custom-set" class="btn btn--glass btn--small" aria-label="Set custom duration">Set</button>
+      </div>
+
+      <div class="timer-controls" data-aos="fade-up" data-aos-delay="650">
+        <button id="timer-start" class="btn btn--primary btn--round" aria-label="Start timer">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        <button id="timer-stop" class="btn btn--glass btn--round" aria-label="Pause timer">
+          <i class="fa-solid fa-pause"></i>
+        </button>
+        <button id="timer-reset" class="btn btn--glass btn--round" aria-label="Reset timer">
+          <i class="fa-solid fa-arrow-rotate-left"></i>
+        </button>
+      </div>
+
+      <div id="timer-notification" class="timer-notification" role="alert" aria-live="polite" hidden>
+        <p><i class="fa-solid fa-bell"></i> Time's up! Great focus session!</p>
+        <button id="timer-dismiss" class="btn btn--small">Dismiss</button>
+      </div>
+    </section>
+
+    <!-- Quick Links - Saved in LocalStorage (Bottom) -->
+    <section id="links-container" class="card card--links" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500" aria-label="Quick links">
+      <h2 class="card__title card__title--center"><i class="fa-solid fa-link"></i> Quick Links</h2>
+      <div id="links-grid" class="links-grid" data-aos="fade-up" data-aos-delay="600"></div>
+    </section>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- AOS 2.3.4 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <!-- Custom Script -->
+  <script src="js/script.js"></script>
+</body>
+</html>
